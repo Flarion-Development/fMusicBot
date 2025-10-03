@@ -1,4 +1,4 @@
-FROM python
+FROM python:3.10-slim
 
 # STAGE 0 : COPY SOURCE CODE
 COPY . /opt/discord-music-bot
