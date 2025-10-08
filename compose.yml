@@ -1,0 +1,12 @@
+services:
+  bot:
+    build: .
+    container_name: fMusicBot
+    restart: unless-stopped
+    environment:
+      - BOT_TOKEN=your_bot_token
+      - PREFIX=!
+      - NODE_HOST=your_node_host
+      - NODE_PORT=your_node_port
+      - NODE_PASSWORD=your_node_password
+      - NODE_SECURE=false
