@@ -2,7 +2,6 @@ import nextcord
 from nextcord.ext import commands
 from loguru import logger
 from settings import *
-
 import mafic
 from mafic import TrackEndEvent, TrackStartEvent, EndReason
 import asyncio
@@ -62,8 +61,11 @@ class MusicEvents:
                 secure=secure
             )
             logger.info("Connected to Lavalink node")
-        except RuntimeError:
-            logger.error("Failed to connect to Lavalink node")
+        except Exception as e:
+            logger.error(f"Failed to connect to Lavalink node: {e}")
+            logger.info("Retrying connection in 10 seconds...")
+            await asyncio.sleep(10)
+            await self.connect_node()
 
         self.ready_ran = True
 
