@@ -1,8 +1,9 @@
-FROM python:3.10-slim
-
+FROM python:3.12.11-trixie
 # STAGE 0 : COPY SOURCE CODE
 COPY . /opt/discord-music-bot
-
+RUN apt-get update && apt-get upgrade -y
+# STAGE 1 : UPGRADE PIP
+RUN python -m pip install --upgrade pip
 
 # STAGE 2 : CREATE REQUIREMENTS FILE AND INSTALL DEPENDENCIES
 RUN pip install -r /opt/discord-music-bot/requirements.txt

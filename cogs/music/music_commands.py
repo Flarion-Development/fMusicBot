@@ -211,7 +211,8 @@ class MusicCommands:
 
         await player.stop()
         embed = nextcord.Embed(
-            title="Skipped",
+            title="Skipped and Now Playing",
+            image=player.current.artwork_url
             description="The current track has been skipped.",
             color=nextcord.Color.green()
         )
