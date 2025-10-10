@@ -1,29 +1,34 @@
 from dotenv import load_dotenv
+from typing import Union,Tuple
 import os
 
 load_dotenv()
 
 
-bot_prefix = str(os.getenv('BOT_PREFIX'))
-bot_token = str(os.getenv('BOT_TOKEN')) or 'your bot token'
+class Settings():
+    def __init__(self):
+        self.bot_prefix: str = os.getenv('BOT_PREFIX','!')
+        self.bot_token: str = os.getenv('BOT_TOKEN','notatoken')
+        self.host: str = os.getenv('NODE_HOST','localhost')
+        self.port: int = os.getenv('NODE_PORT',2333)
+        self.password: str = os.getenv('NODE_PASSWORD','youshallnotpass')
+        self.secure: bool = os.getenv('NODE_SECURE',False)
 
 
-# NODE INFO
-host = str(os.getenv('NODE_HOST')) or 'localhost'
-port = int(os.getenv('NODE_PORT')) or 2333
-password = str(os.getenv('NODE_PASSWORD')) or 'youshallnotpass'
-secure = str(os.getenv('NODE_SECURE')) or 'false'
-if secure == 'true':
-    print('Secure is true')
-    secure = True
-else:
-    print('Secure is false')
-    secure = False
+bot_config = Settings()
+try:
+    # Bot prefix
+    bot_prefix: str = bot_config.bot_prefix if bot_config.bot_prefix != '' else '!'
 
-# COGS
+    # Token ve host
+    bot_token: str = bot_config.bot_token if bot_config.bot_token != '' else 'notatoken'
+    host: str = bot_config.host if bot_config.host != '' else 'localhost'
+    port: int = bot_config.port if bot_config.port != '' else 2333
 
-music = os.getenv('MUSIC')
-moderation = os.getenv('MODERATION')
-general = os.getenv('GENERAL')
-giveaway = os.getenv('GIVEAWAY')
-support = os.getenv('SUPPORT')
+    # Şifre kontrolü
+    password: str = bot_config.password if bot_config.password != '' else 'youshallnotpass'
+    secure: bool = bot_config.secure if bot_config.secure != '' else False
+except ValueError as ve:
+    print(f'{ve}')
+except Exception as e:
+    print(f'Exception: {e}')

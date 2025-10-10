@@ -22,6 +22,10 @@ class MusicEvents:
         self.command_channels = {}
         self.autoplay_enabled = {}
         self.played_songs = set()
+        self.host: str = host if host != None else "localhost"
+        self.port: int = port if port != None else 2333
+        self.password: str = password if password != None else "youshallnotpass"
+        self.secure: bool = secure if secure != None else False
     
 
     def get_youtube_music_recommendation(self,video_id: str):
@@ -54,11 +58,11 @@ class MusicEvents:
 
         try:
             await self.nodes.create_node(
-                host=host,
-                port=port,
+                host=self.host,
+                port=self.port,
                 label="MAIN",
-                password=password,
-                secure=secure
+                password=self.password,
+                secure=self.secure
             )
             logger.info("Connected to Lavalink node")
         except Exception as e:
